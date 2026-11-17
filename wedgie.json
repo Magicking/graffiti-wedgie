@@ -1,0 +1,36 @@
+{
+  "apps": [
+    {
+      "mod": "graffiti",
+      "name": "Graffiti",
+      "about": "The Graffiti NFT collection: one big, a wall of nine, or a slideshow. Packed in, or live from Sepolia, Base or Linea.",
+      "files": [
+        "graffiti/graffiti.py",
+        "graffiti/graffiti_draw.py",
+        "graffiti/graffiti_chain.py",
+        "graffiti/graffiti_chains.json",
+        "graffiti/graffiti_snap.bin"
+      ],
+      "entry": "run",
+      "fw": "0.3.70",
+      "net": [
+        "chain"
+      ],
+      "label": "#8ecf61",
+      "icon": [
+        "kkkkkkkkkkkk",
+        "kkkkgkggkggk",
+        "kgkggkggkgkg",
+        "gkkggkgggkkg",
+        "gggkgkkggkkg",
+        "gkkggkgkgkkg",
+        "gkkggkgkgkkg",
+        "kggkggggkggk",
+        "kkkkkkkkkkkk",
+        "kkgggkkkkkkk",
+        "kkgggkkkkkkk",
+        "kkkkkkkkkkkk"
+      ]
+    }
+  ]
+}
