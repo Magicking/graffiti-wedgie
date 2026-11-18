@@ -58,11 +58,17 @@ python3 -I tools/build_snapshot.py --from-chain 11155111 --rpc https://1rpc.io/s
 
 ## Install
 
-From a computer with the wedgie plugged in:
+From a computer with the wedgie plugged in, using `wedgie.py`, the one-file wedgie CLI from
+[wedgie.dev](https://wedgie.dev/wedgie.py) (source in
+[clawdbotatg/wedgie-dev](https://github.com/clawdbotatg/wedgie-dev)):
 
 ```sh
-python3 wedgie.py install .        # then press green on the wedgie
+curl -fsSLO https://wedgie.dev/wedgie.py
+python3 wedgie.py install .        # in this repo, then press green on the wedgie
 ```
+
+On Linux, add the USB rules once first, or the port says "Access denied":
+`curl -fsSL https://wedgie.dev/linux.sh | sudo sh`.
 
 You can also open the wedgie's page on wedgie.dev and use Software, then "Apps from a GitHub repo".
 An app installed from GitHub is **not signed by wedgie.dev and runs with full access**, so only
