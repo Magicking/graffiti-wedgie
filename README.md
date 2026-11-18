@@ -12,7 +12,8 @@ the same views, the same controls and all 104 graffiti. No wallet, no install.
 <img src="docs/img/show-4.png" width="240" alt="The slideshow with its number badge">
 </p>
 
-The app icon is graffiti #0 (Sepolia token 0), shrunk to 12x12 by `tools/make_icon.py`.
+The app icon is graffiti #0 on Base (the "GRAFFITI" tag, #29 in the snapshot), shrunk to 12x12 by
+`tools/make_icon.py`.
 
 ## Views
 

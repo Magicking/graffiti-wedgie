@@ -1,8 +1,12 @@
-"""Draw the 12x12 wedgie.json icon from one graffiti in the snapshot (default: token 0).
+"""Draw the 12x12 wedgie.json icon from one graffiti.
 
-python3 -I tools/make_icon.py [index] [--png out.png]
+python3 -I tools/make_icon.py [index] [--png out.png]          # from the snapshot
+python3 -I tools/make_icon.py --reply reply.hex [--png out.png]  # from a getGraffitiBase reply
 
-The same token 0 is on Sepolia (ids there match the snapshot ids).
+The current icon is Base token 0 (the snapshot's #29):
+cast call 0xcc39fe145eece8a733833d7a78dca7f287996693 'getGraffitiBase(uint256)' 0 \\
+    --rpc-url https://mainnet.base.org > base0.hex
+python3 -I tools/make_icon.py --reply base0.hex --threshold 0.4 --png docs/img/icon.png
 Each icon cell covers about 10.7x10.7 source pixels; a cell is lit when enough of it is lit.
 Lit cells use the palette letter closest to the graffiti's color, the rest are black.
 """
@@ -29,6 +33,15 @@ def load(index):
         bits = f.read(BITS)
     tid = struct.unpack(">H", meta[:2])[0]
     return tid, tuple(meta[2:5]), bits
+
+
+def load_reply(path):
+    """getGraffitiBase ABI reply as hex: word 2 color, words 8..71 the bits."""
+    with open(path) as f:
+        a = f.read().strip()
+    a = a[2:] if a.startswith("0x") else a
+    words = [a[64 * i:64 * (i + 1)] for i in range(72)]
+    return "reply", tuple(bytes.fromhex(words[2][-6:])), bytes.fromhex("".join(words[8:72]))
 
 
 def lit(bits, x, y):
@@ -102,8 +115,13 @@ def main():
         i = args.index("--png")
         out = args[i + 1]
         del args[i:i + 2]
-    index = int(args[0]) if args else 0
-    tid, color, bits = load(index)
+    if "--threshold" in args:
+        global THRESHOLD
+        THRESHOLD = float(args[args.index("--threshold") + 1])
+    if "--reply" in args:
+        tid, color, bits = load_reply(args[args.index("--reply") + 1])
+    else:
+        tid, color, bits = load(int(args[0]) if args else 0)
     rows = icon(bits, color)
     with open(MANIFEST) as f:
         manifest = json.load(f)
