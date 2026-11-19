@@ -126,8 +126,7 @@ def badge():
 
 def draw_one(with_badge=True):
     got = src.get(idx, BUF)
-    if got is None:                          # live, on its way: poll() brings it, then we draw again
-        ui.progress("Graffiti #%d" % idx, src.name, bar=False)
+    if got is None:                          # live, on its way: keep the last picture until poll() brings it
         return
     d.fill(BLACK)
     tint(FG, got[1])
@@ -260,6 +259,8 @@ def run():
                 if trouble(src.name, e, "{g} snapshot  {r} again") != "Y":
                     cfg["src"] = 0
                     use(0)
+                d.fill(BLACK)
+                d.show()
             redraw = True
         was = idx
         if view == "wall":
@@ -310,6 +311,8 @@ def run():
                     redraw = True
         if "X" in k:
             settings()
+            d.fill(BLACK)                    # live: black until the graffiti arrives, not the settings page
+            d.show()
             redraw = True
         if badge_until and not redraw and view != "wall" and time.ticks_diff(t, badge_until) >= 0:
             badge_until = 0
